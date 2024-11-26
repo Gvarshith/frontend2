@@ -1,0 +1,114 @@
+@font-face {
+    font-family: myFont;
+    src: url(./assets/fonts/static/RedHatText-Regular.ttf);
+}@font-face {
+    font-family: myFontB;
+    src: url(./assets/fonts/static/RedHatText-Bold.ttf);
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: #FCF8F5;
+}
+.container {
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* Left: 3 parts for items | Right: 1 part for summary */
+    gap: 20px;
+    padding: 20px;
+    align-items: start;
+      position: relative;
+}
+.items{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for products */
+    gap: 20px;
+}
+.summ {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: fit-content; /* Adjusts to content height */
+    margin-top: -40px;
+}
+.summ p {
+    font-size: 15px;
+}
+.summ img{
+    height: 70%;
+    width: 70%;
+}
+.div {
+    height: 350px;
+    width: 90%; /* Full width of the grid cell */
+    color: white;
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+img{
+    width: 100%;
+    height: 70%;
+    margin:0;
+    border-radius: 5px;
+}
+button{
+ background:    #ffffff;
+border:        1px solid #c4390b;
+border-radius: 32px;
+padding:       12px 35px;
+color:         #000000;
+font:          normal normal 16px "Open Sans", sans-serif;
+text-align:    center;
+margin-top: -20px;
+display: flex;
+
+}
+.cart {
+    height: 21px;
+    width: 21px;
+}
+p{
+    color: #000000;
+    margin: 0;
+    align-self: flex-start;
+    font-size: 18px;
+    font-family:myFont;
+}
+.price{
+    color: #c4390b;
+} 
+.title{
+    opacity: 0.6;
+}
+h1{
+    margin-left: 20px;
+    margin-bottom: 0;
+    font-size: 45px;
+    font-family: myFontB;
+}
+.quantity{
+    margin: 0 15px 0 15px;
+}
+.fa-solid{
+    color: white;
+    margin-top: 6%;
+}
+
+
+.cartIt{
+    text-align: left;
+    position: relative;
+}
+
+#rem{
+    height: 25%;
+    width: 25%;
+    position: absolute; 
+    right: 0;
+ 
+}
