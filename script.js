@@ -58,49 +58,73 @@ fetch('./data.json')
     }
 
     // Update cart summary
-    function updateCartSummary() {
-      cartSummary.innerHTML = '';
-      let totalItems = 0;
+   // Update cart summary
+function updateCartSummary() {
+  cartSummary.innerHTML = '';
+  let totalItems = 0;
 
-      cart.forEach((cartItem) => {
-        totalItems += cartItem.quantity;
-        cartSummary.insertAdjacentHTML(
-          'beforeend',
-          `
-          <div class="cartIt">
-            <div class="title">
-              <h7><b>${cartItem.name}</b></h7>
-              <img id="rem" src="./assets/images/icon-remove-item.svg" data-name="${cartItem.name}">
-            </div>
-            <span>${cartItem.quantity}x</span>&nbsp;&nbsp;
-            <span>₹${cartItem.price}</span>&nbsp;&nbsp;
-            <span>₹${cartItem.quantity * cartItem.price}</span>
-            <hr>
-          </div>`
-        );
-      });
+  // Iterate through cart items and update the summary
+  cart.forEach((cartItem) => {
+    totalItems += cartItem.quantity;
+    cartSummary.insertAdjacentHTML(
+      'beforeend',
+      `
+      <div class="cartIt">
+        <div class="title">
+          <h7><b>${cartItem.cat}</b></h7>
+          <img id="rem" src="./assets/images/icon-remove-item.svg" data-name="${cartItem.name}">
+        </div>
+        <span>${cartItem.quantity}x</span>&nbsp;&nbsp;
+        <span>₹${cartItem.price}</span>&nbsp;&nbsp;
+        <span>₹${cartItem.quantity * cartItem.price}</span>
+        <hr>
+      </div>
+     `
+    );
+  });
 
-      // Handle empty cart
-      if (cart.length === 0) {
-        cartSummary.innerHTML = `
-          <div class="empty-cart">
-            <img src="./assets/images/illustration-empty-cart.svg" alt="Empty Cart">
-            <p>Your cart is empty. Add some items to get started!</p>
-          </div>`;
-      }
-      cartCount.textContent = totalItems;
+  // Handle empty cart
+  if (totalItems > 0) {
+    // Append submit button when total quantity > 1
+    const submitButton = document.createElement('button');
+    submitButton.id = 'submit';
+    submitButton.textContent = 'Confirm Order';
+    submitButton.style.padding = '10px 20px';
+    submitButton.style.marginTop = '10px';
+    submitButton.style.backgroundColor = '#007bff';
+    submitButton.style.color = '#fff';
+    submitButton.style.border = 'none';
+    submitButton.style.cursor = 'pointer';
+  
+    submitButton.addEventListener('click', () => {
+      // Calculate the total price
+      const totalPrice = cart.reduce(
+        (sum, cartItem) => sum + cartItem.quantity * cartItem.price,
+        0
+      );
+  
+      // Display the total price
+      alert(`Order confirmed! Total Price: ₹${totalPrice}`);
+    });
+  
+    cartSummary.appendChild(submitButton);
+  }
+  
 
-      // Add listeners for cart item actions
-      document.querySelectorAll('.fa-circle-plus').forEach((button) => {
-        button.addEventListener('click', (e) => updateQuantity(e.target.dataset.name, 1));
-      });
-      document.querySelectorAll('.fa-circle-minus').forEach((button) => {
-        button.addEventListener('click', (e) => updateQuantity(e.target.dataset.name, -1));
-      });
-      document.querySelectorAll('#rem').forEach((button) => {
-        button.addEventListener('click', (e) => removeItem(e.target.dataset.name));
-      });
-    }
+  cartCount.textContent = totalItems;
+
+  // Add listeners for cart item actions
+  document.querySelectorAll('#rem').forEach((button) => {
+    button.addEventListener('click', (e) => removeItem(e.target.dataset.name));
+  });
+}
+
+    document.querySelectorAll('.fa-circle-plus').forEach((button) => {
+      button.addEventListener('click', (e) => updateQuantity(e.target.dataset.name, 1));
+    });
+    document.querySelectorAll('.fa-circle-minus').forEach((button) => {
+      button.addEventListener('click', (e) => updateQuantity(e.target.dataset.name, -1));
+    });
 
     // Update quantity logic
     function updateQuantity(name, change) {
