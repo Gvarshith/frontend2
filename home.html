@@ -15,13 +15,16 @@
 
 <body>
   <h1><b>Desserts</b></h1>
-
+  <div  id="dim"></div>
   <!-- Product Container -->
   <div class="container">
-    <div class="overlay" id="overlay"> <div class="modal">
-      <p>Order confirmed! Total Price: ₹800</p>
-      <button id="closeModal">Close</button>
-    </div></div>
+    <div class="overCont" style="display: none;"  >
+      <img src="./assets/images/icon-order-confirmed.svg"  id="confirm" alt="Confirmed">
+       <h2>Order Confirmed</h2>
+    <div id="overlay">
+    </div>
+    <button id ="subNew">Submit New Order</button>
+  </div>
     <div class="items">
       <!-- Items will be dynamically generated here -->
     </div>

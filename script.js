@@ -4,7 +4,11 @@ fetch('./data.json')
     const element = document.querySelector('.items');
     const cartSummary = document.querySelector('#cart-items');
     const cartCount = document.querySelector('#cart-count');
+    const overlay = document.querySelector('#overlay');
+    const overlayCont = document.querySelector('.overCont');
+    const dim = document.getElementById('dim');
     let cart = []; // Track cart items
+    let thumCart = [];
 
     // Generate product list
     data.forEach((item, index) => {
@@ -58,6 +62,38 @@ fetch('./data.json')
     }
 
     // Update cart summary
+    function displayThum() {
+      // Clear existing content in overlay
+      overlay.innerHTML = ''; 
+      // Display cart items
+      thumCart.forEach((cartItem) => {
+        overlay.insertAdjacentHTML(
+          'beforeend',
+          `
+      <div class="thumb">
+     <img src="${cartItem.image.thumbnail}" alt="${cartItem.name}" id="thumbnail" />
+        <div class="titleT">
+          <h7><b>${cartItem.category}</b></h7><br>
+           <span>${cartItem.quantity}x</span>&nbsp;&nbsp;
+        <span>₹${cartItem.price}</span>&nbsp;&nbsp;
+        <span>₹${cartItem.quantity * cartItem.price}</span>
+        </div>
+       
+      </div>
+         `
+        );
+      });
+    
+      // Make overlay visible
+      overlayCont.style.display = 'flex';
+    
+      // Add close functionality
+      document.getElementById('subNew').addEventListener('click', () => {
+        overlayCont.style.display = 'none';
+        dim.style.display = 'none';
+      });
+    }
+    
    // Update cart summary
 function updateCartSummary() {
   cartSummary.innerHTML = '';
@@ -71,7 +107,7 @@ function updateCartSummary() {
       `
       <div class="cartIt">
         <div class="title">
-          <h7><b>${cartItem.cat}</b></h7>
+          <h7><b>${cartItem.category}</b></h7>
           <img id="rem" src="./assets/images/icon-remove-item.svg" data-name="${cartItem.name}">
         </div>
         <span>${cartItem.quantity}x</span>&nbsp;&nbsp;
@@ -84,32 +120,37 @@ function updateCartSummary() {
   });
 
   // Handle empty cart
-  if (totalItems > 0) {
+  if (cart.length === 0) {
+    cartSummary.innerHTML = `
+      <div class="empty-cart">
+        <img src="./assets/images/illustration-empty-cart.svg" alt="Empty Cart">
+        <p>Your cart is empty. Add some items to get started!</p>
+      </div>`;
+  } else if (totalItems > 0) {
     // Append submit button when total quantity > 1
     const submitButton = document.createElement('button');
     submitButton.id = 'submit';
     submitButton.textContent = 'Confirm Order';
-    submitButton.style.padding = '10px 20px';
-    submitButton.style.marginTop = '10px';
-    submitButton.style.backgroundColor = '#007bff';
-    submitButton.style.color = '#fff';
-    submitButton.style.border = 'none';
     submitButton.style.cursor = 'pointer';
-  
+
     submitButton.addEventListener('click', () => {
       // Calculate the total price
       const totalPrice = cart.reduce(
         (sum, cartItem) => sum + cartItem.quantity * cartItem.price,
         0
       );
-  
-      // Display the total price
-      alert(`Order confirmed! Total Price: ₹${totalPrice}`);
+      thumCart = [...cart];
+      // alert(`Order confirmed! Total Price: ₹${totalPrice}`);
+      dim.style.display = 'block';
+      displayThum();
+      const paragraph = document.createElement('p');
+      paragraph.innerHTML = `Order Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> ₹${totalPrice}</b>`;
+      paragraph.id = 'myParagraph'; 
+      overlay.appendChild(paragraph);
+    
     });
-  
     cartSummary.appendChild(submitButton);
   }
-  
 
   cartCount.textContent = totalItems;
 
