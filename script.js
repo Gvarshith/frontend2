@@ -91,6 +91,9 @@ fetch('./data.json')
       document.getElementById('subNew').addEventListener('click', () => {
         overlayCont.style.display = 'none';
         dim.style.display = 'none';
+        addToCartButtons.forEach((button, index) => {
+          resetButtonStyles(button);
+        });
       });
     }
     
