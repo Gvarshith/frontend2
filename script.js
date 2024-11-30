@@ -91,9 +91,15 @@ fetch('./data.json')
       document.getElementById('subNew').addEventListener('click', () => {
         overlayCont.style.display = 'none';
         dim.style.display = 'none';
-        addToCartButtons.forEach((button, index) => {
+        addToCartButtons.forEach((button) => {
           resetButtonStyles(button);
         });
+        cartSummary.innerHTML = `
+        <div class="empty-cart">
+          <img src="./assets/images/illustration-empty-cart.svg" alt="Empty Cart">
+          <p>Your added items will appear here</p>
+        </div>`;
+        cartCount.textContent = 0;
       });
     }
     
@@ -127,7 +133,7 @@ function updateCartSummary() {
     cartSummary.innerHTML = `
       <div class="empty-cart">
         <img src="./assets/images/illustration-empty-cart.svg" alt="Empty Cart">
-        <p>Your cart is empty. Add some items to get started!</p>
+        <p>Your added items will appear here</p>
       </div>`;
   } else if (totalItems > 0) {
     // Append submit button when total quantity > 1
