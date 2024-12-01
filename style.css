@@ -212,7 +212,7 @@ h1{
     display: none;
   }
   /* ///////////////////////////////////////////after Media querries////////////////////////////////////////////////*/
-  @media (max-width: 768px) {
+  @media (max-width: 480px) {
         .container {
             gap: 10px;
             padding-left: 20px;
@@ -264,6 +264,12 @@ h1{
     #overlay{
         width: 90%;
     }
+  #subNew{
+    
+        height: 5%;
+        padding-top: 2.5%;
+    
+  }
   }
   
   
