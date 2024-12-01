@@ -9,6 +9,7 @@ body, html {
     margin: 0;
     padding: 0;
     background-color: #FCF8F5;
+    scroll-behavior: smooth;
 }
 .container {
     display: grid;
@@ -52,11 +53,12 @@ body, html {
     align-items: center;
     flex-direction: column;
 }
-img{
+.deskimg{
     width: 100%;
     height: 70%;
     margin:0;
     border-radius: 5px;
+    display: block;
 }
 button{
  background:    #ffffff;
@@ -153,7 +155,7 @@ h1{
 
 }
 .thumb {
-    background-color: #FCF8F5;
+    background-color:#FCF8F5;
     padding-left: 0.5%;
     padding-top: 0.5%;
     border-radius: 5px;
@@ -206,3 +208,62 @@ h1{
      padding-top: 1%;
      padding-bottom: 1%;
   }
+  .mobileimg{
+    display: none;
+  }
+  /* ///////////////////////////////////////////after Media querries////////////////////////////////////////////////*/
+  @media (max-width: 768px) {
+        .container {
+            gap: 10px;
+            padding-left: 20px;
+            align-items: start;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+          
+    
+    .items{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); /* 3 columns for products */
+        gap: 20px;
+    }
+    .summ {
+        margin-top: -5px;
+        width: 90%;
+    }
+    .deskimg{
+        display: none;
+    }
+    .mobileimg{
+        display: block;
+        width: 100%;
+        height: 70%;
+        margin:0;
+        border-radius: 5px;
+      }
+      .overCont {
+        top: 28%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    #thumbnail {
+        height: 33px;
+        width: 34px;
+    }
+    .thumb{
+        height: 50%;
+        width: 100%;
+    }
+    #thumbnail{
+        height: 90%;
+        width: 9%;
+      }
+    #overlay{
+        width: 90%;
+    }
+  }
+  
+  

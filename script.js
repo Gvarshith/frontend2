@@ -7,16 +7,18 @@ fetch('./data.json')
     const overlay = document.querySelector('#overlay');
     const overlayCont = document.querySelector('.overCont');
     const dim = document.getElementById('dim');
+    const quantity = document.querySelector('.quantity');
     let cart = []; // Track cart items
     let thumCart = [];
 
-    // Generate product list
+    //////////////////////////////////// Generate product list///////////////////////////////////////////////////////
     data.forEach((item, index) => {
       element.insertAdjacentHTML(
         'beforeend',
         `
         <div class="div">
-          <img src="${item.image.desktop}" alt="${item.name}">
+          <img src="${item.image.desktop}" alt="${item.name}" class="deskimg">
+          <img src="${item.image.mobile}" alt="${item.name}" class="mobileimg">
           <button class="add-to-cart" data-index="${index}">
             <img class="cart" src="./assets/images/icon-add-to-cart.svg">
             &nbsp;&nbsp;Add To Cart
@@ -33,13 +35,13 @@ fetch('./data.json')
       );
     });
 
-    // Add event listeners for buttons
+    ///////////////////////////////// Add event listeners for buttons(add-to-cart)////////////////////////////////////
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     addToCartButtons.forEach((button, index) => {
       button.addEventListener('click', () => handleAddToCart(button, data[index]));
     });
 
-    // Add to cart logic
+    ////////////////////////////////// Add to cart logic
     function handleAddToCart(button, item) {
       const parentDiv = button.closest('.div');
       const image = parentDiv.querySelector('img');
@@ -61,11 +63,11 @@ fetch('./data.json')
       updateCartSummary();
     }
 
-    // Update cart summary
+    ///////////////////////////////////////// Update cart summary displaythumb()/////////////////////////////////////////
     function displayThum() {
-      // Clear existing content in overlay
+      //////////////////////////////////////// Clear existing content in overlay
       overlay.innerHTML = ''; 
-      // Display cart items
+      /////////////////////////////////////////// Display cart items
       thumCart.forEach((cartItem) => {
         overlay.insertAdjacentHTML(
           'beforeend',
@@ -84,10 +86,10 @@ fetch('./data.json')
         );
       });
     
-      // Make overlay visible
+      //////////////////////////////////////////////// Make overlay visible
       overlayCont.style.display = 'flex';
     
-      // Add close functionality
+     ///////////////////////////////////////////// // Add close functionality
       document.getElementById('subNew').addEventListener('click', () => {
         overlayCont.style.display = 'none';
         dim.style.display = 'none';
@@ -103,12 +105,12 @@ fetch('./data.json')
       });
     }
     
-   // Update cart summary
+  //////////////////////////////////////////////////// Update cart summary
 function updateCartSummary() {
   cartSummary.innerHTML = '';
   let totalItems = 0;
 
-  // Iterate through cart items and update the summary
+  //////////////////////////////////////////////// Iterate through cart items and update the summary
   cart.forEach((cartItem) => {
     totalItems += cartItem.quantity;
     cartSummary.insertAdjacentHTML(
@@ -176,7 +178,7 @@ function updateCartSummary() {
       button.addEventListener('click', (e) => updateQuantity(e.target.dataset.name, -1));
     });
 
-    // Update quantity logic
+    //////////////////////////////////////////////////////// Update quantity logic
     function updateQuantity(name, change) {
       const item = cart.find((cartItem) => cartItem.name === name);
       if (item) {
@@ -186,7 +188,7 @@ function updateCartSummary() {
       updateCartSummary();
     }
 
-    // Remove item logic
+    /////////////////////////////////////////////////////// Remove item logic
     function removeItem(name) {
       cart = cart.filter((item) => item.name !== name);
       const button = Array.from(addToCartButtons).find(
@@ -196,7 +198,7 @@ function updateCartSummary() {
       updateCartSummary();
     }
 
-    // Reset button styles
+    ////////////////////////////////////////////////////////// Reset button styles
     function resetButtonStyles(button) {
       const parentDiv = button.closest('.div');
       const image = parentDiv.querySelector('img');
