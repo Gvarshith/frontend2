@@ -93,8 +93,8 @@ fetch('./data.json')
       document.getElementById('subNew').addEventListener('click', () => {
         overlayCont.style.display = 'none';
         dim.style.display = 'none';
-        addToCartButtons.forEach((button) => {
-          resetButtonStyles(button);
+        addToCartButtons.forEach(() => {
+          location.reload();
         });
         cartSummary.innerHTML = `
         <div class="empty-cart">
